@@ -1,0 +1,76 @@
+App\Entity\Location:
+    properties:
+        city:
+            - NotBlank:
+                  message: The city name cannot be blank.
+                  groups: [new, edit]
+            - Length:
+                  min: 3
+                  minMessage: The city name must be at least 3 characters long.
+                  groups: [new, edit]
+        country:
+            - NotBlank:
+                  message: The country code cannot be blank.
+                  groups: [new, edit]
+            - Length:
+                  min: 2
+                  max: 2
+                  exactMessage: The country code must be exactly 2 characters long.
+                  groups: [new, edit]
+        latitude:
+            - NotBlank:
+                  message: Latitude cannot be blank.
+                  groups: [new, edit]
+            - Range:
+                  min: -90
+                  max: 90
+                  notInRangeMessage: Latitude must be between -90 and 90.
+                  groups: [new, edit]
+        longitude:
+            - NotBlank:
+                  message: Longitude cannot be blank.
+                  groups: [new, edit]
+            - Range:
+                  min: -180
+                  max: 180
+                  notInRangeMessage: Longitude must be between -180 and 180.
+                  groups: [new, edit]
+
+App\Entity\Measurement:
+    properties:
+        location:
+            - NotNull:
+                  message: A location must be selected.
+                  groups: [new, edit]
+        date:
+            - NotNull:
+                  message: The date cannot be null.
+                  groups: [new, edit]
+            - Type:
+                  type: \DateTimeInterface
+                  groups: [new, edit]
+        celsius:
+            - NotBlank:
+                  message: Celsius temperature cannot be blank.
+                  groups: [new, edit]
+            - Range:
+                  min: -80
+                  max: 80
+                  notInRangeMessage: Temperature must be between -80 and 80°C.
+                  groups: [new, edit]
+        wind_direct:
+            - NotBlank:
+                  message: Wind direction is required when creating a new measurement.
+                  groups: [new]
+        pressure:
+            - Range:
+                  min: 900
+                  max: 1100
+                  notInRangeMessage: Pressure must be between 900 and 1100 hPa.
+                  groups: [edit]
+        humidity:
+            -   Range:
+                    min: 0
+                    max: 100
+                    notInRangeMessage: Humidity must be between 0% and 100%.
+                    groups: [new, edit]
